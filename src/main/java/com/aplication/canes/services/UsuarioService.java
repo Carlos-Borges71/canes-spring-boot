@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.aplication.canes.repositories.UsuarioRepository;
 import com.aplication.canes.entities.UsuarioEntitie;
+
 @Service
 public class UsuarioService {
 

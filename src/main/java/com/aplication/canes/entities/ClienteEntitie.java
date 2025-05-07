@@ -5,108 +5,81 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aplication.canes.entities.enums.Setor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="usuario")
-public class UsuarioEntitie implements Serializable {
+@Table(name = "cliente")
+public class ClienteEntitie implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Setor setor;
     private String nome;
-    private String login;
     private Instant instante;
+    
+    @ManyToMany(mappedBy = "clientes")
+    private List<UsuarioEntitie> operadores = new ArrayList<>();
 
-    private String senha;
-
-    @ManyToMany
-    @JoinTable(name = "USUARIO_CLIENTE",
-        joinColumns = @JoinColumn(name = "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "cliente_id")
-    )
-    private List<ClienteEntitie> clientes = new ArrayList<>();
-
-    public UsuarioEntitie(){        
+    public ClienteEntitie(){
     }
 
-    public UsuarioEntitie(Integer id, Setor setor, String nome, String login, Instant instante, String senha) {
+
+    public ClienteEntitie(Integer id, String nome, Instant instante) {
         this.id = id;
-        this.setor = setor;
         this.nome = nome;
-        this.login = login;
         this.instante = instante;
-        this.senha = senha;
+        
     }
+
 
     public Integer getId() {
         return id;
     }
 
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Setor getSetor() {
-        return setor;
-    }
-
-    public void setSetor(Setor setor) {
-        this.setor = setor;
-    }
 
     public String getNome() {
         return nome;
     }
 
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public Instant getInstante() {
         return instante;
     }
 
+
     public void setInstante(Instant instante) {
         this.instante = instante;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     
 
-    public List<ClienteEntitie> getClientes() {
-        return clientes;
+
+    public List<UsuarioEntitie> getOperadores() {
+        return operadores;
     }
 
-    public void setClientes(List<ClienteEntitie> clientes) {
-        this.clientes = clientes;
+
+    public void setOperadores(List<UsuarioEntitie> operadores) {
+        this.operadores = operadores;
     }
+
 
     @Override
     public int hashCode() {
@@ -116,6 +89,7 @@ public class UsuarioEntitie implements Serializable {
         return result;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -124,7 +98,7 @@ public class UsuarioEntitie implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UsuarioEntitie other = (UsuarioEntitie) obj;
+        ClienteEntitie other = (ClienteEntitie) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -132,6 +106,6 @@ public class UsuarioEntitie implements Serializable {
             return false;
         return true;
     }
-    
+
     
 }

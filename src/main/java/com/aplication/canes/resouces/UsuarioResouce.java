@@ -32,7 +32,6 @@ public class UsuarioResouce {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-
     public ResponseEntity<?> findById(@PathVariable Integer id){
 
         UsuarioEntitie obj = service.findById(id);
