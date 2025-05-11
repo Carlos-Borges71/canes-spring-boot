@@ -2,15 +2,14 @@ package com.aplication.canes.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Set;
+import java.util.HashSet;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,8 +23,8 @@ public class ClienteEntitie implements Serializable{
     private String nome;
     private Instant instante;
     
-    @ManyToMany(mappedBy = "clientes")
-    private List<UsuarioEntitie> operadores = new ArrayList<>();
+    @OneToMany(mappedBy = "id.cliente")
+    private Set<OperadorCliente> usuarios = new HashSet<>();
 
     public ClienteEntitie(){
     }
@@ -66,18 +65,16 @@ public class ClienteEntitie implements Serializable{
 
     public void setInstante(Instant instante) {
         this.instante = instante;
+    }    
+
+
+    public Set<OperadorCliente> getUsuarios() {
+        return usuarios;
     }
 
-    
 
-
-    public List<UsuarioEntitie> getOperadores() {
-        return operadores;
-    }
-
-
-    public void setOperadores(List<UsuarioEntitie> operadores) {
-        this.operadores = operadores;
+    public void setUsuarios(Set<OperadorCliente> usuarios) {
+        this.usuarios = usuarios;
     }
 
 

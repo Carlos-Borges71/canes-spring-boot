@@ -10,10 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.aplication.canes.entities.ClienteEntitie;
 import com.aplication.canes.entities.FornecedorEntitie;
+import com.aplication.canes.entities.OperadorCliente;
 import com.aplication.canes.entities.UsuarioEntitie;
 import com.aplication.canes.entities.enums.Setor;
 import com.aplication.canes.repositories.ClienteRepository;
 import com.aplication.canes.repositories.FornecedorRepository;
+import com.aplication.canes.repositories.OperadorClienteRepository;
 import com.aplication.canes.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -27,6 +29,9 @@ public class CanesApplication implements CommandLineRunner{
 
 	@Autowired
 	private ClienteRepository cliRepo;
+
+	@Autowired
+	private OperadorClienteRepository operClieRepo;
 
 	
 
@@ -56,19 +61,13 @@ public class CanesApplication implements CommandLineRunner{
 		ClienteEntitie cli2 = new ClienteEntitie(null,"David Orange",Instant.parse("2025-05-10T17:00:00Z"));
 		ClienteEntitie cli3 = new ClienteEntitie(null,"Denise Gray",Instant.parse("2025-03-10T15:00:00Z"));
 
-		
-		
-		
-		cli1.getOperadores().addAll(Arrays.asList(use1));
-		cli2.getOperadores().addAll(Arrays.asList(use2));
-		cli3.getOperadores().addAll(Arrays.asList(use2));
-
-		use1.getClientes().addAll(Arrays.asList(cli1,cli2));
-		use2.getClientes().addAll(Arrays.asList(cli3));
-		use3.getClientes().addAll(Arrays.asList(cli3));
+		OperadorCliente operCli1 = new OperadorCliente(use1, cli1);
+		OperadorCliente operCli2 = new OperadorCliente(use1, cli2);
+		OperadorCliente operCli3 = new OperadorCliente(use2, cli3);
 
 		
 		cliRepo.saveAll(Arrays.asList(cli1,cli2,cli3));
 		useRepo.saveAll(Arrays.asList(use1,use2,use3));
+		operClieRepo.saveAll(Arrays.asList(operCli1, operCli2, operCli3));
 	}	
 }

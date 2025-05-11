@@ -3,7 +3,9 @@ package com.aplication.canes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.aplication.canes.entities.enums.Setor;
 
@@ -11,9 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,12 +31,8 @@ public class UsuarioEntitie implements Serializable {
 
     private String senha;
 
-    @ManyToMany
-    @JoinTable(name = "USUARIO_CLIENTE",
-        joinColumns = @JoinColumn(name = "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "cliente_id")
-    )
-    private List<ClienteEntitie> clientes = new ArrayList<>();
+    @OneToMany(mappedBy = "id.operador")
+   private Set<OperadorCliente> clientes = new HashSet<>();
 
     public UsuarioEntitie(){        
     }
@@ -48,6 +44,15 @@ public class UsuarioEntitie implements Serializable {
         this.login = login;
         this.instante = instante;
         this.senha = senha;
+        
+    }
+
+    public List<ClienteEntitie> getClients(){
+        List<ClienteEntitie> lista = new ArrayList<>();
+        for(OperadorCliente x : clientes){
+            lista.add(x.getCliente());
+        }
+        return lista;
     }
 
     public Integer getId() {
@@ -98,13 +103,13 @@ public class UsuarioEntitie implements Serializable {
         this.senha = senha;
     }
 
-    
+   
 
-    public List<ClienteEntitie> getClientes() {
+    public Set<OperadorCliente> getClientes() {
         return clientes;
     }
 
-    public void setClientes(List<ClienteEntitie> clientes) {
+    public void setClientes(Set<OperadorCliente> clientes) {
         this.clientes = clientes;
     }
 
