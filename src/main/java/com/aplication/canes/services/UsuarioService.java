@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 
@@ -45,6 +46,9 @@ public class UsuarioService {
 
             throw new ResourceNotFoundEXception(e.getMessage());
 
+        }catch(HttpMessageNotReadableException e){
+
+            throw new ResourceNotFoundEXception(e.getMessage());
         }
     }
 
@@ -79,6 +83,7 @@ public class UsuarioService {
 
             throw new DataBaseException(id);
         }
+        
     }
 
     private void updateData(UsuarioEntitie entity, UsuarioEntitie obj){
@@ -87,7 +92,7 @@ public class UsuarioService {
         entity.setInstante(obj.getInstante());
         entity.setSetor(obj.getSetor());
         entity.setLogin(obj.getLogin());
-        entity.setSenha(obj.getSenha());
+        entity.setSenha(obj.getSenha());        
         }
 
 
