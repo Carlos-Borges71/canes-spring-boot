@@ -27,11 +27,11 @@ public class OperadorCliente implements Serializable{
         id.setCliente(cliente);     
     }
     
-
+    
     public UsuarioEntitie getOperador(){
         return id.getOperador();
     }
-
+   
     public ClienteEntitie getCliente(){
         return id.getCliente();
     }

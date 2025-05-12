@@ -3,6 +3,9 @@ package com.aplication.canes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 
 import jakarta.persistence.Entity;
@@ -67,12 +70,12 @@ public class ClienteEntitie implements Serializable{
         this.instante = instante;
     }    
 
-
+ 
     public Set<OperadorCliente> getUsuarios() {
         return usuarios;
     }
 
-
+    @JsonIgnore
     public void setUsuarios(Set<OperadorCliente> usuarios) {
         this.usuarios = usuarios;
     }

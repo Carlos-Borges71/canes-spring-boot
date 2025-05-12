@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.aplication.canes.entities.ClienteEntitie;
 import com.aplication.canes.repositories.ClienteRepository;
+import com.aplication.canes.services.exceptions.ResourceNotFoundEXception;
 
 @Service
 public class ClienteService {
@@ -22,9 +23,9 @@ public class ClienteService {
 
     public ClienteEntitie findById(Integer id){
 
-        Optional<ClienteEntitie> obj = repo.findById(id);
+       Optional<ClienteEntitie> obj = repo.findById(id);
 
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundEXception("Usuario com ID "+ id +" não encontrado."));
     }
 
     public void insert(ClienteEntitie obj){
@@ -33,10 +34,8 @@ public class ClienteService {
     }
 
     public void deleteById(Integer id){
-        if(!repo.existsById(id)){
-
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
-        }
+        
+        findById(id);
 
         repo.deleteById(id);
     }
