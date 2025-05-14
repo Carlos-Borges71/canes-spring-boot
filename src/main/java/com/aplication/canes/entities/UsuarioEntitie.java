@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,13 +30,19 @@ public class UsuarioEntitie implements Serializable {
     private Setor setor;
     private String nome;
     private String login;
+
+    @OneToMany(mappedBy = "operador")
+    private Set<TelefoneEntitie> telefones = new HashSet<>();
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instante;
     private String senha;
 
     @OneToMany(mappedBy = "id.operador")
-   private Set<OperadorCliente> clientes = new HashSet<>();
+    private Set<OperadorCliente> clientes = new HashSet<>();
+
+    @OneToOne(mappedBy = "operador")
+    private EnderecoEntitie endereco;
 
     public UsuarioEntitie(){        
     }
@@ -114,6 +121,21 @@ public class UsuarioEntitie implements Serializable {
 
     public void setClientes(Set<OperadorCliente> clientes) {
         this.clientes = clientes;
+    }
+
+    
+
+    public Set<TelefoneEntitie> getTelefones() {
+        return telefones;
+    }
+    
+
+    public EnderecoEntitie getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoEntitie endereco) {
+        this.endereco = endereco;
     }
 
     @Override

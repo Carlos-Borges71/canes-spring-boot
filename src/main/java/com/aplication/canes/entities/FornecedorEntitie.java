@@ -1,11 +1,15 @@
 package com.aplication.canes.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +22,12 @@ public class FornecedorEntitie implements Serializable{
     private Integer id;
     private String empresa;
     private String cnpjCpf;
+
+    @OneToMany(mappedBy = "fornecedor")
+    private Set<TelefoneEntitie> telefones = new HashSet<>();
+
+    @OneToOne(mappedBy = "fornecedor")    
+    private EnderecoEntitie endereco;
 
     public FornecedorEntitie(){        
     }
@@ -51,6 +61,14 @@ public class FornecedorEntitie implements Serializable{
     public void setCnpjCpf(String cnpjCpf) {
         this.cnpjCpf = cnpjCpf;
     }
+    
+    public EnderecoEntitie getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoEntitie endereco) {
+        this.endereco = endereco;
+    }
 
     @Override
     public int hashCode() {
@@ -58,6 +76,10 @@ public class FornecedorEntitie implements Serializable{
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
+    }
+    
+    public Set<TelefoneEntitie> getTelefones() {
+        return telefones;
     }
 
     @Override

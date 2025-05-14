@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +29,12 @@ public class ClienteEntitie implements Serializable{
     
     @OneToMany(mappedBy = "id.cliente")
     private Set<OperadorCliente> usuarios = new HashSet<>();
+    
+    @OneToMany(mappedBy = "cliente")
+    private Set<TelefoneEntitie> telefones = new HashSet<>();
+
+    @OneToOne(mappedBy = "cliente")
+    private EnderecoEntitie endereco;
 
     public ClienteEntitie(){
     }
@@ -75,9 +82,26 @@ public class ClienteEntitie implements Serializable{
         return usuarios;
     }
 
+    
+
+    public EnderecoEntitie getEndereco() {
+        return endereco;
+    }
+
+
+    public void setEndereco(EnderecoEntitie endereco) {
+        this.endereco = endereco;
+    }
+
+
     @JsonIgnore
     public void setUsuarios(Set<OperadorCliente> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    
+    public Set<TelefoneEntitie> getTelefones() {
+        return telefones;
     }
 
 
