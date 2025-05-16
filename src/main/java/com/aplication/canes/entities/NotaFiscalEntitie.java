@@ -1,8 +1,7 @@
 package com.aplication.canes.entities;
 
 import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.Instant;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,39 +12,28 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "telefone")
-public class TelefoneEntitie implements Serializable{
+@Table(name ="nota_fiscal")
+public class NotaFiscalEntitie implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String numero;
-    
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private ClienteEntitie cliente;
+    private Integer notaFiscal;
+    private Instant data;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private UsuarioEntitie operador;
-
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     private FornecedorEntitie fornecedor;
 
-    public TelefoneEntitie(){        
+  
+    public NotaFiscalEntitie(){        
     }
 
-    public TelefoneEntitie(Integer id, String numero, ClienteEntitie cliente, UsuarioEntitie operador,
-            FornecedorEntitie fornecedor) {
+    public NotaFiscalEntitie(Integer id, Integer notaFiscal, Instant data, FornecedorEntitie fornecedor) {
         this.id = id;
-        this.numero = numero;
-        this.cliente = cliente;
-        this.operador = operador;
+        this.notaFiscal = notaFiscal;
+        this.data = data;
         this.fornecedor = fornecedor;
     }
 
@@ -57,28 +45,20 @@ public class TelefoneEntitie implements Serializable{
         this.id = id;
     }
 
-    public String getNumero() {
-        return numero;
+    public Integer getNotaFiscal() {
+        return notaFiscal;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNotaFiscal(Integer notaFiscal) {
+        this.notaFiscal = notaFiscal;
     }
 
-    public ClienteEntitie getCliente() {
-        return cliente;
+    public Instant getData() {
+        return data;
     }
 
-    public void setCliente(ClienteEntitie cliente) {
-        this.cliente = cliente;
-    }
-
-    public UsuarioEntitie getOperador() {
-        return operador;
-    }
-
-    public void setOperador(UsuarioEntitie operador) {
-        this.operador = operador;
+    public void setData(Instant data) {
+        this.data = data;
     }
 
     public FornecedorEntitie getFornecedor() {
@@ -105,7 +85,7 @@ public class TelefoneEntitie implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        TelefoneEntitie other = (TelefoneEntitie) obj;
+        NotaFiscalEntitie other = (NotaFiscalEntitie) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

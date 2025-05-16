@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.aplication.canes.entities.ClienteEntitie;
+import com.aplication.canes.entities.EnderecoEntitie;
 import com.aplication.canes.entities.FornecedorEntitie;
 import com.aplication.canes.entities.OperadorCliente;
 import com.aplication.canes.entities.TelefoneEntitie;
@@ -37,6 +38,9 @@ public class TestConfig implements CommandLineRunner{
 
 	@Autowired
 	private TelefoneRepository telrepo;
+
+	@Autowired
+	private EnderecoRepository endRepo;
 
 
     @Override
@@ -71,7 +75,13 @@ public class TestConfig implements CommandLineRunner{
 		TelefoneEntitie t1 = new TelefoneEntitie(null, "(56)2589-8878",cli1, null, null);
 		TelefoneEntitie t2 = new TelefoneEntitie(null, "(21)98563-8978)", cli2, null, null);
 		TelefoneEntitie t3 = new TelefoneEntitie(null, "(61)2589-9898", cli3, null, null);
+		TelefoneEntitie t4 = new TelefoneEntitie(null, "(21)9898-5858", null, null, for1);
+		telrepo.saveAll(Arrays.asList(t1, t2,t3,t4));
 
-		telrepo.saveAll(Arrays.asList(t1, t2,t3));
+		EnderecoEntitie end1 = new EnderecoEntitie(null, "Rua A", "25", "Vila", "Iguaçu", "Sergipe", "26000-550", cli1,null, null);
+		EnderecoEntitie end2 = new EnderecoEntitie(null, "AV Atlantica", "1230", "Copacabana", "Rio de Janeiro", "Rio de Janeiro", "26000-550", cli2,null, null);
+		EnderecoEntitie end3 = new EnderecoEntitie(null, "Rua J", "250", "Vila Tem", "Barro", "Sergipe", "26120-550", null, use1, null);
+
+		endRepo.saveAll(Arrays.asList(end1, end2, end3));
 	}	
 }

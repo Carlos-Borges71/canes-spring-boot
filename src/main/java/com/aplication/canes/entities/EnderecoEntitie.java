@@ -2,6 +2,8 @@ package com.aplication.canes.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,14 +27,17 @@ public class EnderecoEntitie implements Serializable{
     private String estado;
     private String cep;
     
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntitie cliente;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntitie operador;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "fornecedor_id")
     private FornecedorEntitie fornecedor;

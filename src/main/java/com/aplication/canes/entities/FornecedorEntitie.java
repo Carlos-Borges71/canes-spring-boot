@@ -29,6 +29,12 @@ public class FornecedorEntitie implements Serializable{
     @OneToOne(mappedBy = "fornecedor")    
     private EnderecoEntitie endereco;
 
+    @OneToMany(mappedBy = "fornecedor")
+    private Set<NotaFiscalEntitie> notasFiscais = new HashSet<>();
+
+    @OneToMany(mappedBy = "fornecedor")
+    private Set<ProdutoEntitie> produto = new HashSet<>();
+
     public FornecedorEntitie(){        
     }
 
@@ -68,6 +74,17 @@ public class FornecedorEntitie implements Serializable{
 
     public void setEndereco(EnderecoEntitie endereco) {
         this.endereco = endereco;
+    }
+
+    
+
+    public Set<NotaFiscalEntitie> getNotasFiscais() {
+        return notasFiscais;
+    }
+    
+
+    public Set<ProdutoEntitie> getProduto() {
+        return produto;
     }
 
     @Override
