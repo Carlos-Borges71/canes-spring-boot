@@ -1,6 +1,10 @@
 package com.aplication.canes.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,17 +28,21 @@ public class ProdutoEntitie implements Serializable{
     private Integer estoque;
     private Double valorCompra;
     private Double valorVenda;
-    private Double quantcompra;
+    private Integer quantcompra;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     private FornecedorEntitie fornecedor;
 
+
+    @OneToMany(mappedBy = "id.produto")
+    private Set<PedidoProduto> pedidos = new HashSet<>();
+
     public ProdutoEntitie(){
     }
 
     public ProdutoEntitie(Integer id, Integer codigo, String nome, Integer estoque, Double valorCompra,
-            Double valorVenda, Double quantcompra, FornecedorEntitie fornecedor) {
+            Double valorVenda, Integer quantcompra, FornecedorEntitie fornecedor) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
@@ -44,7 +53,7 @@ public class ProdutoEntitie implements Serializable{
         this.fornecedor = fornecedor;
     }
 
-    public Integer getId() {
+      public Integer getId() {
         return id;
     }
 
@@ -92,16 +101,22 @@ public class ProdutoEntitie implements Serializable{
         this.valorVenda = valorVenda;
     }
 
-    public Double getQuantcompra() {
+    public Integer getQuantcompra() {
         return quantcompra;
     }
 
-    public void setQuantcompra(Double quantcompra) {
+    public void setQuantcompra(Integer quantcompra) {
         this.quantcompra = quantcompra;
     }
     
+    @JsonIgnore
     public FornecedorEntitie getFornecedor(){
         return fornecedor;
+    }
+    
+    @JsonIgnore
+    public Set<PedidoProduto> getPedidos() {
+        return pedidos;
     }
 
     @Override

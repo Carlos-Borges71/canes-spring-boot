@@ -1,4 +1,4 @@
-package com.aplication.canes.resouces;
+package com.aplication.canes.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.aplication.canes.entities.FornecedorEntitie;
-import com.aplication.canes.services.FornecedorService;
+import com.aplication.canes.entities.ProdutoEntitie;
+import com.aplication.canes.services.ProdutoService;
+
 
 
 @RestController
-@RequestMapping(value = "/fornecedores")
-public class FornecedorResouce {
+@RequestMapping(value = "/produtos")
+public class ProdutoResouce {
 
     @Autowired
-    private FornecedorService service;
+    private ProdutoService service;
 
-   
     @RequestMapping( method=RequestMethod.GET)
     public ResponseEntity<?> findAll() {
 
-        List<FornecedorEntitie> obj = service.findAll();
+        List<ProdutoEntitie> obj = service.findAll();
 
         return ResponseEntity.ok().body(obj);
     }
@@ -36,13 +36,13 @@ public class FornecedorResouce {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findById(@PathVariable Integer id){
 
-        FornecedorEntitie obj = service.findById(id);
+        ProdutoEntitie obj = service.findById(id);
 
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<FornecedorEntitie> insert(@RequestBody FornecedorEntitie obj){
+    public ResponseEntity<ProdutoEntitie> insert(@RequestBody ProdutoEntitie obj){
 
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -59,8 +59,9 @@ public class FornecedorResouce {
    }
 
    @RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-   public ResponseEntity<FornecedorEntitie> update(@PathVariable Integer id, @RequestBody FornecedorEntitie obj){
+   public ResponseEntity<ProdutoEntitie> update(@PathVariable Integer id, @RequestBody ProdutoEntitie obj){
     obj = service.update(id, obj);
     return ResponseEntity.ok().body(obj);
    }
+
 }

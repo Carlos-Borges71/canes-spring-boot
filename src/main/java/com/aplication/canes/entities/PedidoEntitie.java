@@ -2,13 +2,21 @@ package com.aplication.canes.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.aplication.canes.entities.enums.EstadoPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,15 +31,34 @@ public class PedidoEntitie implements Serializable{
     private Double valor;
     private Instant data;
 
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<PedidoProduto> pedido = new HashSet<>();
+
+    @OneToMany(mappedBy = "pedido")
+    private Set<PagamentoEntitie> pagamentos = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private ClienteEntitie cliente;
+
     public PedidoEntitie(){
     }
 
-    public PedidoEntitie(Integer id, EstadoPedido status, Double valor, Instant data) {
+    public PedidoEntitie(Integer id, EstadoPedido status, Double valor, Instant data, ClienteEntitie cliente) {
         this.id = id;
         this.status = status;
         this.valor = valor;
         this.data = data;
-    }
+        this.cliente = cliente;
+    }   
+
+    public List<ProdutoEntitie> getProdutos(){
+         List<ProdutoEntitie> lista = new ArrayList<>();
+         for(PedidoProduto x : pedido){
+            lista.add(x.getProduto());
+         }
+         return lista;
+     }
 
     public Integer getId() {
         return id;
@@ -64,6 +91,25 @@ public class PedidoEntitie implements Serializable{
     public void setData(Instant data) {
         this.data = data;
     }
+    
+    @JsonIgnore
+     public Set<PedidoProduto> getPedido() {
+        return pedido;
+    }
+
+    
+    public Set<PagamentoEntitie> getPagamentos() {
+        return pagamentos;
+    }
+    
+
+    public ClienteEntitie getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntitie cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public int hashCode() {
@@ -89,5 +135,7 @@ public class PedidoEntitie implements Serializable{
             return false;
         return true;
     }
+
+   
     
 }

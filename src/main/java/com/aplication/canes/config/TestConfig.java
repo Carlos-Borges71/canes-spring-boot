@@ -11,9 +11,14 @@ import org.springframework.context.annotation.Profile;
 import com.aplication.canes.entities.ClienteEntitie;
 import com.aplication.canes.entities.EnderecoEntitie;
 import com.aplication.canes.entities.FornecedorEntitie;
+import com.aplication.canes.entities.NotaFiscalEntitie;
 import com.aplication.canes.entities.OperadorCliente;
+import com.aplication.canes.entities.PedidoEntitie;
+import com.aplication.canes.entities.PedidoProduto;
+import com.aplication.canes.entities.ProdutoEntitie;
 import com.aplication.canes.entities.TelefoneEntitie;
 import com.aplication.canes.entities.UsuarioEntitie;
+import com.aplication.canes.entities.enums.EstadoPedido;
 import com.aplication.canes.entities.enums.Setor;
 import com.aplication.canes.repositories.*;
 
@@ -41,6 +46,17 @@ public class TestConfig implements CommandLineRunner{
 
 	@Autowired
 	private EnderecoRepository endRepo;
+
+	@Autowired
+	private NotaFiscalRepository nfRepo;
+
+	@Autowired
+	private PedidoRepository pedRepo;
+
+	@Autowired
+	private ProdutoRepository prodRepo;
+	@Autowired
+	private PedidoProdutoRepository ppRepo;
 
 
     @Override
@@ -83,5 +99,33 @@ public class TestConfig implements CommandLineRunner{
 		EnderecoEntitie end3 = new EnderecoEntitie(null, "Rua J", "250", "Vila Tem", "Barro", "Sergipe", "26120-550", null, use1, null);
 
 		endRepo.saveAll(Arrays.asList(end1, end2, end3));
+
+		NotaFiscalEntitie n1 = new NotaFiscalEntitie(null,003,Instant.now(),for1);
+		NotaFiscalEntitie n2 = new NotaFiscalEntitie(null,231,Instant.now(),for2);
+		NotaFiscalEntitie n3 = new NotaFiscalEntitie(null,56,Instant.now(),for3);
+		NotaFiscalEntitie n4 = new NotaFiscalEntitie(null,458,Instant.now(),for3);
+
+		nfRepo.saveAll(Arrays.asList(n1,n2,n3,n4));
+
+		PedidoEntitie p1 = new PedidoEntitie(null, EstadoPedido.AGUARDANDO_PAGAMENTO, 360.00, Instant.parse("2025-04-14T15:45:22Z"),cli1);
+		PedidoEntitie p2 = new PedidoEntitie(null, EstadoPedido.PAGO, 320.00, Instant.parse("2025-04-18T15:00:22Z"),cli2);
+		PedidoEntitie p3 = new PedidoEntitie(null, EstadoPedido.CANCELADO, 120.30, Instant.parse("2025-04-14T13:45:22Z"),cli3);
+
+		pedRepo.saveAll(Arrays.asList(p1,p2,p3));
+
+		ProdutoEntitie prod1 = new ProdutoEntitie( null,1010,"Calça Jeans",10, 100.00, 120.60,25, for3);
+		ProdutoEntitie prod2 = new ProdutoEntitie( null,2020,"Vestido",20, 140.80, 160.60,5, for2);
+		ProdutoEntitie prod3 = new ProdutoEntitie( null,3030,"Calça Esporte",40, 130.00, 180.60,15, for1);
+
+		prodRepo.saveAll(Arrays.asList(prod1,prod2, prod3));
+
+		PedidoProduto pp1 = new PedidoProduto(p1,prod1, 1);
+		PedidoProduto pp2 = new PedidoProduto(p1, prod2, 1);
+		PedidoProduto pp3 =new PedidoProduto(p1, prod2, 1);
+		PedidoProduto pp4 =new PedidoProduto(p2, prod3, 1);
+		PedidoProduto pp5 =new PedidoProduto(p3, prod1, 5);
+
+		ppRepo.saveAll(Arrays.asList(pp1,pp2,pp3,pp4,pp5));
+
 	}	
 }

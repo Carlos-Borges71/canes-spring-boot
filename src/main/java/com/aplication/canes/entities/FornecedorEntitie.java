@@ -33,7 +33,8 @@ public class FornecedorEntitie implements Serializable{
     private Set<NotaFiscalEntitie> notasFiscais = new HashSet<>();
 
     @OneToMany(mappedBy = "fornecedor")
-    private Set<ProdutoEntitie> produto = new HashSet<>();
+    private Set<ProdutoEntitie> produtos = new HashSet<>();
+
 
     public FornecedorEntitie(){        
     }
@@ -83,8 +84,8 @@ public class FornecedorEntitie implements Serializable{
     }
     
 
-    public Set<ProdutoEntitie> getProduto() {
-        return produto;
+    public Set<ProdutoEntitie> getProdutos() {
+        return produtos;
     }
 
     @Override

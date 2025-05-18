@@ -36,6 +36,9 @@ public class ClienteEntitie implements Serializable{
     @OneToOne(mappedBy = "cliente")
     private EnderecoEntitie endereco;
 
+    @OneToMany(mappedBy = "cliente")
+    private Set<PedidoEntitie> pedidos = new HashSet<>();
+
     public ClienteEntitie(){
     }
 
@@ -102,6 +105,12 @@ public class ClienteEntitie implements Serializable{
     
     public Set<TelefoneEntitie> getTelefones() {
         return telefones;
+    }
+    
+
+    @JsonIgnore
+    public Set<PedidoEntitie> getPedidos() {
+        return pedidos;
     }
 
 

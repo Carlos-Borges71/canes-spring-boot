@@ -1,4 +1,4 @@
-package com.aplication.canes.resouces;
+package com.aplication.canes.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -13,22 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.aplication.canes.entities.EnderecoEntitie;
-import com.aplication.canes.services.EnderecoService;
-
-
+import com.aplication.canes.entities.PedidoEntitie;
+import com.aplication.canes.services.PedidoService;
 
 @RestController
-@RequestMapping(value = "/enderecos")
-public class EnderecoResouce {
+@RequestMapping(value = "/pedidos")
+public class PedidoResource {
 
     @Autowired
-    private EnderecoService service;
+    private PedidoService service;
 
     @RequestMapping( method=RequestMethod.GET)
     public ResponseEntity<?> findAll() {
 
-        List<EnderecoEntitie> obj = service.findAll();
+        List<PedidoEntitie> obj = service.findAll();
 
         return ResponseEntity.ok().body(obj);
     }
@@ -36,13 +34,13 @@ public class EnderecoResouce {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findById(@PathVariable Integer id){
 
-        EnderecoEntitie obj = service.findById(id);
+        PedidoEntitie obj = service.findById(id);
 
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<EnderecoEntitie> insert(@RequestBody EnderecoEntitie obj){
+    public ResponseEntity<PedidoEntitie> insert(@RequestBody PedidoEntitie obj){
 
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -59,9 +57,8 @@ public class EnderecoResouce {
    }
 
    @RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-   public ResponseEntity<EnderecoEntitie> update(@PathVariable Integer id, @RequestBody EnderecoEntitie obj){
+   public ResponseEntity<PedidoEntitie> update(@PathVariable Integer id, @RequestBody PedidoEntitie obj){
     obj = service.update(id, obj);
     return ResponseEntity.ok().body(obj);
    }
-
 }
