@@ -131,6 +131,7 @@ public class EnderecoEntitie implements Serializable{
         this.operador = operador;
     }
 
+    
     public FornecedorEntitie getFornecedor() {
         return fornecedor;
     }

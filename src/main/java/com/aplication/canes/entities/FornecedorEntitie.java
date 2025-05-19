@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -78,7 +80,7 @@ public class FornecedorEntitie implements Serializable{
     }
 
     
-
+    @JsonIgnore
     public Set<NotaFiscalEntitie> getNotasFiscais() {
         return notasFiscais;
     }

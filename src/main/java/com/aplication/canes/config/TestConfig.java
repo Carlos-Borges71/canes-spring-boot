@@ -13,6 +13,7 @@ import com.aplication.canes.entities.EnderecoEntitie;
 import com.aplication.canes.entities.FornecedorEntitie;
 import com.aplication.canes.entities.NotaFiscalEntitie;
 import com.aplication.canes.entities.OperadorCliente;
+import com.aplication.canes.entities.PagamentoEntitie;
 import com.aplication.canes.entities.PedidoEntitie;
 import com.aplication.canes.entities.PedidoProduto;
 import com.aplication.canes.entities.ProdutoEntitie;
@@ -20,7 +21,17 @@ import com.aplication.canes.entities.TelefoneEntitie;
 import com.aplication.canes.entities.UsuarioEntitie;
 import com.aplication.canes.entities.enums.EstadoPedido;
 import com.aplication.canes.entities.enums.Setor;
-import com.aplication.canes.repositories.*;
+import com.aplication.canes.repositories.ClienteRepository;
+import com.aplication.canes.repositories.EnderecoRepository;
+import com.aplication.canes.repositories.FornecedorRepository;
+import com.aplication.canes.repositories.NotaFiscalRepository;
+import com.aplication.canes.repositories.OperadorClienteRepository;
+import com.aplication.canes.repositories.PagamentoRepository;
+import com.aplication.canes.repositories.PedidoProdutoRepository;
+import com.aplication.canes.repositories.PedidoRepository;
+import com.aplication.canes.repositories.ProdutoRepository;
+import com.aplication.canes.repositories.TelefoneRepository;
+import com.aplication.canes.repositories.UsuarioRepository;
 
 @Configuration
 @Profile("test")
@@ -57,6 +68,8 @@ public class TestConfig implements CommandLineRunner{
 	private ProdutoRepository prodRepo;
 	@Autowired
 	private PedidoProdutoRepository ppRepo;
+	@Autowired
+	private PagamentoRepository pgRepo;
 
 
     @Override
@@ -127,5 +140,12 @@ public class TestConfig implements CommandLineRunner{
 
 		ppRepo.saveAll(Arrays.asList(pp1,pp2,pp3,pp4,pp5));
 
+
+		PagamentoEntitie pg1 = new PagamentoEntitie(null, "Pix", Instant.now(),120.00, p2);
+		PagamentoEntitie pg2 = new PagamentoEntitie(null, "Dinheiro", Instant.parse("2025-04-18T15:00:00Z"),360.00, p2);
+		PagamentoEntitie pg3 = new PagamentoEntitie(null, "Visa", Instant.parse("2025-04-19T15:40:00Z"),136.00, p1);
+		PagamentoEntitie pg4 = new PagamentoEntitie(null, "MasterCard", Instant.parse("2025-03-16T16:12:36Z"),350.00, p3);
+
+		pgRepo.saveAll(Arrays.asList(pg1, pg2,pg3,pg4));
 	}	
 }

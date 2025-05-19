@@ -27,7 +27,7 @@ public class UsuarioEntitie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Setor setor;
+    private Integer setor;
     private String nome;
     private String login;
 
@@ -49,7 +49,7 @@ public class UsuarioEntitie implements Serializable {
 
     public UsuarioEntitie(Integer id, Setor setor, String nome, String login, Instant instante, String senha) {
         this.id = id;
-        this.setor = setor;
+        setSetor(setor);
         this.nome = nome;
         this.login = login;
         this.instante = instante;
@@ -57,7 +57,7 @@ public class UsuarioEntitie implements Serializable {
         
     }
    
-    public List<ClienteEntitie> getClients(){
+    public List<ClienteEntitie> getClientes(){
         List<ClienteEntitie> lista = new ArrayList<>();
         for(OperadorCliente x : clientes){
             lista.add(x.getCliente());
@@ -74,11 +74,13 @@ public class UsuarioEntitie implements Serializable {
     }
 
     public Setor getSetor() {
-        return setor;
+        return Setor.valueOf(setor);
     }
 
     public void setSetor(Setor setor) {
-        this.setor = setor;
+        if(setor != null) {
+            this.setor =setor.getCode();
+        }
     }
 
     public String getNome() {
@@ -114,10 +116,10 @@ public class UsuarioEntitie implements Serializable {
     }
 
    
-    @JsonIgnore
-    public Set<OperadorCliente> getClientes() {
-        return clientes;
-    }
+    // @JsonIgnore
+    // public Set<OperadorCliente> getClientes() {
+    //     return clientes;
+    // }
 
     public void setClientes(Set<OperadorCliente> clientes) {
         this.clientes = clientes;
@@ -130,6 +132,7 @@ public class UsuarioEntitie implements Serializable {
     }
     
 
+    @JsonIgnore
     public EnderecoEntitie getEndereco() {
         return endereco;
     }

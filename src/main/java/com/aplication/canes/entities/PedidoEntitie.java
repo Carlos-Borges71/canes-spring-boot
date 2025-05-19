@@ -27,7 +27,7 @@ public class PedidoEntitie implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private EstadoPedido status;
+    private Integer status;
     private Double valor;
     private Instant data;
 
@@ -46,7 +46,7 @@ public class PedidoEntitie implements Serializable{
 
     public PedidoEntitie(Integer id, EstadoPedido status, Double valor, Instant data, ClienteEntitie cliente) {
         this.id = id;
-        this.status = status;
+        setStatus(status);
         this.valor = valor;
         this.data = data;
         this.cliente = cliente;
@@ -69,11 +69,13 @@ public class PedidoEntitie implements Serializable{
     }
 
     public EstadoPedido getStatus() {
-        return status;
+        return EstadoPedido.valueOf(status);
     }
 
     public void setStatus(EstadoPedido status) {
-        this.status = status;
+        if(status != null) {
+            this.status =status.getCode();
+        }
     }
 
     public Double getValor() {
