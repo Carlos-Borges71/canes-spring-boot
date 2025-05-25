@@ -80,13 +80,13 @@ public class ClienteEntitie implements Serializable{
         this.instante = instante;
     }    
 
- 
+    @JsonIgnore
     public Set<OperadorCliente> getUsuarios() {
         return usuarios;
     }
 
     
-
+    
     public EnderecoEntitie getEndereco() {
         return endereco;
     }
@@ -97,7 +97,7 @@ public class ClienteEntitie implements Serializable{
     }
 
 
-    @JsonIgnore
+    
     public void setUsuarios(Set<OperadorCliente> usuarios) {
         this.usuarios = usuarios;
     }

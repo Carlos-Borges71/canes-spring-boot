@@ -36,7 +36,7 @@ public class PagamentoService {
     }
 
     public PagamentoEntitie insert(PagamentoEntitie obj){
-
+        
         try {
 
          return repo.save(obj);
@@ -67,6 +67,7 @@ public class PagamentoService {
 
     public PagamentoEntitie update(Integer id, PagamentoEntitie obj) {
 
+        findById(id);
         try{
         PagamentoEntitie entity = repo.getReferenceById(id);
 

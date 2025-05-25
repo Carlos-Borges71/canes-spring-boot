@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aplication.canes.entities.UsuarioEntitie;
+import com.aplication.canes.entities.dto.UsuarioDPO;
 import com.aplication.canes.services.UsuarioService;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class UsuarioResouce {
     @RequestMapping( method=RequestMethod.GET)
     public ResponseEntity<?> findAll() {
 
-        List<UsuarioEntitie> obj = service.findAll();
+        List<UsuarioDPO> obj = service.findAll();
 
         return ResponseEntity.ok().body(obj);
     }

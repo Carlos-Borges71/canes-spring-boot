@@ -27,12 +27,15 @@ public class UsuarioEntitie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer setor;
+
+    
+    private Setor setor;
+
     private String nome;
     private String login;
 
     @OneToMany(mappedBy = "operador")
-    private Set<TelefoneEntitie> telefones = new HashSet<>();
+    private List<TelefoneEntitie> telefones = new ArrayList<>();
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instante;
@@ -49,7 +52,7 @@ public class UsuarioEntitie implements Serializable {
 
     public UsuarioEntitie(Integer id, Setor setor, String nome, String login, Instant instante, String senha) {
         this.id = id;
-        setSetor(setor);
+        this.setor = setor;
         this.nome = nome;
         this.login = login;
         this.instante = instante;
@@ -73,14 +76,13 @@ public class UsuarioEntitie implements Serializable {
         this.id = id;
     }
 
+    
     public Setor getSetor() {
-        return Setor.valueOf(setor);
+        return setor;
     }
 
     public void setSetor(Setor setor) {
-        if(setor != null) {
-            this.setor =setor.getCode();
-        }
+        this.setor = setor;
     }
 
     public String getNome() {
@@ -116,23 +118,18 @@ public class UsuarioEntitie implements Serializable {
     }
 
    
-    // @JsonIgnore
-    // public Set<OperadorCliente> getClientes() {
-    //     return clientes;
-    // }
-
     public void setClientes(Set<OperadorCliente> clientes) {
         this.clientes = clientes;
     }
 
     
-
-    public Set<TelefoneEntitie> getTelefones() {
+    @JsonIgnore
+    public List<TelefoneEntitie> getTelefones() {
         return telefones;
     }
     
 
-    @JsonIgnore
+   
     public EnderecoEntitie getEndereco() {
         return endereco;
     }

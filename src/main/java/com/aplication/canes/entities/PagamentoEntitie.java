@@ -3,7 +3,7 @@ package com.aplication.canes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +27,7 @@ public class PagamentoEntitie implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PedidoEntitie pedido;
 
     public PagamentoEntitie(){        
@@ -76,7 +77,7 @@ public class PagamentoEntitie implements Serializable{
         return pedido;
     }
 
-    @JsonIgnore
+    
     public void setPedido(PedidoEntitie pedido) {
         this.pedido = pedido;
     }

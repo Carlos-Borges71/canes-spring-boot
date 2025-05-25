@@ -80,12 +80,12 @@ public class FornecedorEntitie implements Serializable{
     }
 
     
-    @JsonIgnore
+    
     public Set<NotaFiscalEntitie> getNotasFiscais() {
         return notasFiscais;
     }
     
-
+    @JsonIgnore
     public Set<ProdutoEntitie> getProdutos() {
         return produtos;
     }
@@ -97,7 +97,7 @@ public class FornecedorEntitie implements Serializable{
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-    
+    @JsonIgnore
     public Set<TelefoneEntitie> getTelefones() {
         return telefones;
     }

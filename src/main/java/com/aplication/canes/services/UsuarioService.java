@@ -2,6 +2,7 @@ package com.aplication.canes.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,13 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 
+import com.aplication.canes.entities.UsuarioEntitie;
+import com.aplication.canes.entities.dto.UsuarioDPO;
 import com.aplication.canes.repositories.UsuarioRepository;
 import com.aplication.canes.services.exceptions.DataBaseException;
 import com.aplication.canes.services.exceptions.ResourceNotFoundEXception;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import com.aplication.canes.entities.UsuarioEntitie;
 
 @Service
 public class UsuarioService {
@@ -24,9 +25,11 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repo;
 
-    public List<UsuarioEntitie> findAll(){
+    public List<UsuarioDPO> findAll(){
 
-        return repo.findAll();
+        List<UsuarioEntitie> operadores = repo.findAll();
+
+        return operadores.stream().map(UsuarioDPO::new).collect(Collectors.toList());
     }
 
     public UsuarioEntitie findById(Integer id){
@@ -37,6 +40,7 @@ public class UsuarioService {
     }
 
     public UsuarioEntitie insert(UsuarioEntitie obj){
+        
 
         try {
 
@@ -67,6 +71,8 @@ public class UsuarioService {
     }
 
     public UsuarioEntitie update(Integer id, UsuarioEntitie obj) {
+
+        findById(id);
 
         try{
         UsuarioEntitie entity = repo.getReferenceById(id);

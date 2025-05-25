@@ -1,8 +1,13 @@
 package com.aplication.canes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.aplication.canes.entities.dto.ProdutoDPO;
+import com.aplication.canes.entities.dto.UsuarioDPO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,19 +32,22 @@ public class EnderecoEntitie implements Serializable{
     private String estado;
     private String cep;
     
-    @JsonIgnore
+    
     @OneToOne
     @JoinColumn(name = "cliente_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClienteEntitie cliente;
 
-    @JsonIgnore
+
     @OneToOne
     @JoinColumn(name = "usuario_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UsuarioEntitie operador;
 
-    @JsonIgnore
+    
     @OneToOne
     @JoinColumn(name = "fornecedor_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private FornecedorEntitie fornecedor;
 
     public EnderecoEntitie(){
@@ -123,8 +131,10 @@ public class EnderecoEntitie implements Serializable{
         this.cliente = cliente;
     }
 
-    public UsuarioEntitie getOperador() {
-        return operador;
+    public UsuarioEntitie getOperador() {  
+             
+        return  operador;
+     
     }
 
     public void setOperador(UsuarioEntitie operador) {

@@ -3,6 +3,8 @@ package com.aplication.canes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class NotaFiscalEntitie implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private FornecedorEntitie fornecedor;
 
   
@@ -61,6 +64,7 @@ public class NotaFiscalEntitie implements Serializable{
         this.data = data;
     }
 
+    
     public FornecedorEntitie getFornecedor() {
         return fornecedor;
     }

@@ -37,17 +37,18 @@ public class TelefoneService {
 
     public TelefoneEntitie insert(TelefoneEntitie obj){
 
+        
         try {
 
          return repo.save(obj);
 
         }catch(ConstraintViolationException e) {
 
-            throw new ResourceNotFoundEXception(e.getMessage());
+           throw new ResourceNotFoundEXception(e.getMessage());
 
         }catch(HttpMessageNotReadableException e){
 
-            throw new ResourceNotFoundEXception(e.getMessage());
+           throw new ResourceNotFoundEXception(e.getMessage());
         }
     }
 
@@ -67,6 +68,7 @@ public class TelefoneService {
 
     public TelefoneEntitie update(Integer id, TelefoneEntitie obj) {
 
+        findById(id);
         try{
         TelefoneEntitie entity = repo.getReferenceById(id);
 
@@ -87,7 +89,10 @@ public class TelefoneService {
 
     private void updateData(TelefoneEntitie entity, TelefoneEntitie obj){
 
-        entity.setNumero(obj.getNumero());     
+        entity.setNumero(obj.getNumero());
+        entity.setCliente(obj.getCliente());
+        entity.setFornecedor(obj.getFornecedor());
+        entity.setOperador(obj.getOperador());     
         
         }
 

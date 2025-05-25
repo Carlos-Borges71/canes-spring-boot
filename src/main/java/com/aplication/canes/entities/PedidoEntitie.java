@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.entities.enums.EstadoPedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +29,7 @@ public class PedidoEntitie implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer status;
+    private EstadoPedido status;
     private Double valor;
     private Instant data;
 
@@ -46,18 +48,18 @@ public class PedidoEntitie implements Serializable{
 
     public PedidoEntitie(Integer id, EstadoPedido status, Double valor, Instant data, ClienteEntitie cliente) {
         this.id = id;
-        setStatus(status);
+        this.status = status;
         this.valor = valor;
         this.data = data;
         this.cliente = cliente;
     }   
 
-    public List<ProdutoEntitie> getProdutos(){
+    public List<ProdutoDPO> getProdutos(){
          List<ProdutoEntitie> lista = new ArrayList<>();
          for(PedidoProduto x : pedido){
             lista.add(x.getProduto());
          }
-         return lista;
+         return lista.stream().map(ProdutoDPO::new).collect(Collectors.toList());
      }
 
     public Integer getId() {
@@ -69,13 +71,11 @@ public class PedidoEntitie implements Serializable{
     }
 
     public EstadoPedido getStatus() {
-        return EstadoPedido.valueOf(status);
+        return status;
     }
 
     public void setStatus(EstadoPedido status) {
-        if(status != null) {
-            this.status =status.getCode();
-        }
+        this.status = status;
     }
 
     public Double getValor() {

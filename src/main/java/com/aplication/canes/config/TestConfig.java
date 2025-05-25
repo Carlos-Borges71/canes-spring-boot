@@ -102,7 +102,7 @@ public class TestConfig implements CommandLineRunner{
 		operClieRepo.saveAll(Arrays.asList(operCli1, operCli2, operCli3, operCli4));
 
 		TelefoneEntitie t1 = new TelefoneEntitie(null, "(56)2589-8878",cli1, null, null);
-		TelefoneEntitie t2 = new TelefoneEntitie(null, "(21)98563-8978)", cli2, null, null);
+		TelefoneEntitie t2 = new TelefoneEntitie(null, "(21)98563-8978)", cli2, use1, null);
 		TelefoneEntitie t3 = new TelefoneEntitie(null, "(61)2589-9898", cli3, null, null);
 		TelefoneEntitie t4 = new TelefoneEntitie(null, "(21)9898-5858", null, null, for1);
 		telrepo.saveAll(Arrays.asList(t1, t2,t3,t4));

@@ -88,7 +88,9 @@ public class PedidoProdutoService {
 
     private void updateData(PedidoProduto entity, PedidoProduto obj){
 
+
         entity.setQuant(obj.getQuant());  
+        
                 
         }
 }

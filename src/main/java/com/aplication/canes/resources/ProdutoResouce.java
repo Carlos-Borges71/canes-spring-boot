@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aplication.canes.entities.ProdutoEntitie;
+import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.services.ProdutoService;
 
 
@@ -28,7 +29,7 @@ public class ProdutoResouce {
     @RequestMapping( method=RequestMethod.GET)
     public ResponseEntity<?> findAll() {
 
-        List<ProdutoEntitie> obj = service.findAll();
+        List<ProdutoDPO> obj = service.findAll();
 
         return ResponseEntity.ok().body(obj);
     }

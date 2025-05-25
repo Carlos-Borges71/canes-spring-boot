@@ -89,6 +89,7 @@ public class FornecedorService {
 
         entity.setEmpresa(obj.getEmpresa());
         entity.setCnpjCpf(obj.getCnpjCpf());
+        entity.setEndereco(obj.getEndereco());
         
         }
 }

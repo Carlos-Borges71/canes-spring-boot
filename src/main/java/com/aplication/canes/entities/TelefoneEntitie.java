@@ -2,7 +2,7 @@ package com.aplication.canes.entities;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,19 +22,22 @@ public class TelefoneEntitie implements Serializable{
     private Integer id;
     private String numero;
     
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClienteEntitie cliente;
 
-    @JsonIgnore
+   
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UsuarioEntitie operador;
 
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private FornecedorEntitie fornecedor;
 
     public TelefoneEntitie(){        
@@ -65,14 +68,17 @@ public class TelefoneEntitie implements Serializable{
         this.numero = numero;
     }
 
+    
     public ClienteEntitie getCliente() {
         return cliente;
     }
 
+    
     public void setCliente(ClienteEntitie cliente) {
         this.cliente = cliente;
     }
 
+   
     public UsuarioEntitie getOperador() {
         return operador;
     }
@@ -81,6 +87,7 @@ public class TelefoneEntitie implements Serializable{
         this.operador = operador;
     }
 
+   
     public FornecedorEntitie getFornecedor() {
         return fornecedor;
     }

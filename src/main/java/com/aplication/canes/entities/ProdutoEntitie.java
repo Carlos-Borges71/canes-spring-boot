@@ -109,7 +109,7 @@ public class ProdutoEntitie implements Serializable{
         this.quantcompra = quantcompra;
     }
     
-    @JsonIgnore
+    
     public FornecedorEntitie getFornecedor(){
         return fornecedor;
     }

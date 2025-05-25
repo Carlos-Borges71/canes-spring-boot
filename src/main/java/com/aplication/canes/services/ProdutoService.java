@@ -2,6 +2,7 @@ package com.aplication.canes.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 
 import com.aplication.canes.entities.ProdutoEntitie;
+import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.repositories.ProdutoRepository;
 import com.aplication.canes.services.exceptions.DataBaseException;
 import com.aplication.canes.services.exceptions.ResourceNotFoundEXception;
@@ -23,9 +25,11 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repo;
 
-    public List<ProdutoEntitie> findAll(){
+    public List<ProdutoDPO> findAll(){
 
-        return repo.findAll();
+        List<ProdutoEntitie> produtos = repo.findAll();
+
+        return produtos.stream().map(ProdutoDPO::new).collect(Collectors.toList());
     }
 
     public ProdutoEntitie findById(Integer id){
