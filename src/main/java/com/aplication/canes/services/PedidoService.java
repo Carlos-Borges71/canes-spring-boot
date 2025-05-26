@@ -15,13 +15,27 @@ import com.aplication.canes.repositories.PedidoRepository;
 import com.aplication.canes.services.exceptions.DataBaseException;
 import com.aplication.canes.services.exceptions.ResourceNotFoundEXception;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 
 @Service
 public class PedidoService {
 
     @Autowired
     private PedidoRepository repo;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public List<?>findPerson(String name){
+
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("get_pedidos_by_name").registerStoredProcedureParameter("pedidos_name", String.class, ParameterMode.IN).setParameter("pedidos_name", name);
+        
+        return query.getResultList();
+    }
 
     public List<PedidoEntitie> findAll(){
 

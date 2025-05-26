@@ -2,7 +2,9 @@ package com.aplication.canes.entities;
 
 import java.io.Serializable;
 
+import com.aplication.canes.entities.dto.UsuarioDPO;
 import com.aplication.canes.entities.pk.OperadorClientePK;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ public class OperadorCliente implements Serializable{
 
     
     @EmbeddedId
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OperadorClientePK id = new OperadorClientePK();
 
     public OperadorCliente(){
@@ -28,10 +31,12 @@ public class OperadorCliente implements Serializable{
     }
     
     
-    public UsuarioEntitie getOperador(){
-        return id.getOperador();
+    public UsuarioDPO getOperador(){
+        
+        return new UsuarioDPO(id.getOperador());        
     }
    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public ClienteEntitie getCliente(){
         return id.getCliente();
     }

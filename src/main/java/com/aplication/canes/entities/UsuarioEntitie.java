@@ -10,6 +10,7 @@ import java.util.Set;
 import com.aplication.canes.entities.enums.Setor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class UsuarioEntitie implements Serializable {
     private Setor setor;
 
     private String nome;
+    
     private String login;
 
     @OneToMany(mappedBy = "operador")
@@ -39,9 +41,10 @@ public class UsuarioEntitie implements Serializable {
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instante;
+
     private String senha;
 
-    @OneToMany(mappedBy = "id.operador")
+    @OneToMany(mappedBy = "id.operador")    
     private Set<OperadorCliente> clientes = new HashSet<>();
 
     @OneToOne(mappedBy = "operador")
@@ -59,7 +62,7 @@ public class UsuarioEntitie implements Serializable {
         this.senha = senha;
         
     }
-   
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public List<ClienteEntitie> getClientes(){
         List<ClienteEntitie> lista = new ArrayList<>();
         for(OperadorCliente x : clientes){

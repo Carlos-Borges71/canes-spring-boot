@@ -1,12 +1,7 @@
 package com.aplication.canes.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import com.aplication.canes.entities.dto.ProdutoDPO;
-import com.aplication.canes.entities.dto.UsuarioDPO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;

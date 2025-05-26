@@ -3,6 +3,7 @@ package com.aplication.canes.entities;
 import java.io.Serializable;
 
 import com.aplication.canes.entities.pk.PedidoProdutoPK;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ public class PedidoProduto implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    
     private PedidoProdutoPK id = new PedidoProdutoPK();
     
     private Integer quant;
@@ -27,15 +29,18 @@ public class PedidoProduto implements Serializable{
         id.setProduto(produto);
         this.quant = quant;
     }
-
+    
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public PedidoEntitie getPedido(){
         return id.getPedido();
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public ProdutoEntitie getProduto(){
         return id.getProduto();
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public PedidoProdutoPK getId() {
         return id;
     }

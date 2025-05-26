@@ -80,7 +80,7 @@ public class ClienteEntitie implements Serializable{
         this.instante = instante;
     }    
 
-    @JsonIgnore
+    
     public Set<OperadorCliente> getUsuarios() {
         return usuarios;
     }

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.entities.enums.EstadoPedido;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,15 +32,15 @@ public class PedidoEntitie implements Serializable{
     private Double valor;
     private Instant data;
 
-    @OneToMany(mappedBy = "id.pedido")
-    private Set<PedidoProduto> pedido = new HashSet<>();
-
     @OneToMany(mappedBy = "pedido")
     private Set<PagamentoEntitie> pagamentos = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntitie cliente;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<PedidoProduto> pedido = new HashSet<>();
 
     public PedidoEntitie(){
     }
@@ -94,7 +93,7 @@ public class PedidoEntitie implements Serializable{
         this.data = data;
     }
     
-    @JsonIgnore
+    
      public Set<PedidoProduto> getPedido() {
         return pedido;
     }
