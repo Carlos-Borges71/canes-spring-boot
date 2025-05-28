@@ -37,6 +37,11 @@ public class PedidoService {
         return query.getResultList();
     }
 
+    public List<PedidoEntitie> findByPedidos(String termo){
+
+        return repo.findByPedidos(termo);
+    }
+
     public List<PedidoEntitie> findAll(){
 
         return repo.findAll();

@@ -12,6 +12,8 @@ import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.entities.enums.EstadoPedido;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +30,8 @@ public class PedidoEntitie implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Enumerated(EnumType.STRING)
     private EstadoPedido status;
     private Double valor;
     private Instant data;

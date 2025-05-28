@@ -23,6 +23,13 @@ public class PedidoResource {
 
     @Autowired
     private PedidoService service;
+    
+    @RequestMapping(value = "/termo/{termo}", method = RequestMethod.GET)
+    public ResponseEntity<?> findByPedidos(@PathVariable String termo){
+        List<PedidoEntitie> obj = service.findByPedidos(termo);
+
+        return ResponseEntity.ok().body(obj);
+    }
 
     @RequestMapping(value = "/by-name", method = RequestMethod.GET)
     public ResponseEntity<?> getPedidos(@RequestParam String name){
@@ -39,6 +46,7 @@ public class PedidoResource {
 
         return ResponseEntity.ok().body(obj);
     }
+    
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findById(@PathVariable Integer id){
