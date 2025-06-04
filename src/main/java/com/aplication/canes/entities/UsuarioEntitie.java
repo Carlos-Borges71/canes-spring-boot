@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.aplication.canes.entities.enums.Setor;
+import com.aplication.canes.entities.enums.SetorConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +31,7 @@ public class UsuarioEntitie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    
+    @Convert(converter = SetorConverter.class)
     private Setor setor;
 
     private String nome;

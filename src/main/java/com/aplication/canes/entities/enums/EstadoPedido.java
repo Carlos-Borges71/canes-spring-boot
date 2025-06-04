@@ -7,20 +7,20 @@ public enum EstadoPedido {
     CANCELADO(3);
     private int code;
 
-    private EstadoPedido(int code){
+    private EstadoPedido(Integer code){
         this.code = code;
     }
 
-    public int getCode() {
+    public Integer getCode() {
 		return code;
 	}
 
-    public static EstadoPedido valueOf(int code) {
-		for(EstadoPedido value : EstadoPedido.values()) {
-			if(value.getCode() == code) {
-				return value;
-			}
-		}
-		throw new IllegalArgumentException("Invalid EstadoPedido code");
-	}
+    public static EstadoPedido fromCodigo(Integer code){
+    for (EstadoPedido status : values()){
+      if (status.code == code){
+        return status;
+      }
+    }
+    throw new IllegalArgumentException("Invalid EstadoPedido code: "+ code); 
+  }
 }

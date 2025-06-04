@@ -15,12 +15,21 @@ public enum Setor {
 		return code;
 	}
 
-    public static Setor valueOf(int code) {
-		for(Setor value : Setor.values()) {
-			if(value.getCode() == code) {
-				return value;
-			}
-		}
-		throw new IllegalArgumentException("Invalid Setor code");
-	}
+  public static Setor fromCodigo(int code){
+    for (Setor status : values()){
+      if (status.code == code){
+        return status;
+      }
+    }
+    throw new IllegalArgumentException("Invalid Setor code: "+ code); 
+  }
+
+    // public static Setor valueOf(int code) {
+		// for(Setor value : Setor.values()) {
+		// 	if(value.getCode() == code) {
+		// 		return value;
+		// 	}
+		// }
+	// 	throw new IllegalArgumentException("Invalid Setor code");
+	// }
 }

@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 
 import com.aplication.canes.entities.dto.ProdutoDPO;
 import com.aplication.canes.entities.enums.EstadoPedido;
+import com.aplication.canes.entities.enums.EstadoPedidoConverter;
 
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,8 +31,9 @@ public class PedidoEntitie implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EstadoPedidoConverter.class)
     private EstadoPedido status;
+    
     private Double valor;
     private Instant data;
 
